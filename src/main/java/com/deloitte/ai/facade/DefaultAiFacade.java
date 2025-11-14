@@ -24,7 +24,7 @@ public final class DefaultAiFacade implements AiFacade {
 		String requestPrompt = promptRequest.text();
 
 		PreRequestContext preContext = promptPreProcessor.process(user, requestPrompt);
-		PromptResponse response = aiClient.prompt(requestPrompt);
+		PromptResponse response = aiClient.chat(requestPrompt);
 		promptPostProcessor.process(user, preContext.requestId(), response.text());
 
 		return response;
