@@ -28,7 +28,8 @@
     <url/>
   </scm>
   <properties>
-    <java.version>25</java.version>
+    <java.version>23</java.version>
+    <maven.compiler.release>23</maven.compiler.release>
   </properties>
   <dependencies>
 
@@ -44,6 +45,7 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.42</version>
+    <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>dev.langchain4j</groupId>
@@ -81,6 +83,11 @@
       <artifactId>postgresql</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -89,6 +96,20 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+            <annotationProcessorPaths>
+                <path>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <version>1.18.30</version>
+                </path>
+            </annotationProcessorPaths>
+        </configuration>
+    </plugin>
     </plugins>
   </build>
 

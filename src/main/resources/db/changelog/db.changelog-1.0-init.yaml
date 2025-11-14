@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-users
+      author: you
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+  - changeSet:
+      id: 2-create-user-requests
+      author: you
+      changes:
+        - createTable:
+            tableName: user_requests
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: text
+                  type: text
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: 3-create-user-response
+      author: you
+      changes:
+        - createTable:
+            tableName: user_response
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: request_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: response
+                  type: text
+                  constraints:
+                    nullable: true

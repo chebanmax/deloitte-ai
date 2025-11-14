@@ -2,17 +2,20 @@ spring:
   application:
     name: deloitte-ai
   datasource:
-    url: jdbc:postgresql://postgres:5432/appdb
+    url: jdbc:postgresql://localhost:5432/appdb
     username: appuser
     password: secret
     driver-class-name: org.postgresql.Driver
-
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
   jpa:
     hibernate:
-      ddl-auto: none   # or validate / create / none
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time_zone: UTC
 
   sql:
     init:
