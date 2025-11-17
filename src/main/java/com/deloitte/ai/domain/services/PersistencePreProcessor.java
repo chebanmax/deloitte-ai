@@ -1,5 +1,6 @@
 package com.deloitte.ai.domain.services;
 
+import com.deloitte.ai.dao.entity.UserEntity;
 import com.deloitte.ai.dao.entity.UserRequest;
 import com.deloitte.ai.dao.repository.UserRepository;
 import com.deloitte.ai.dao.repository.UserRequestRepository;
@@ -17,10 +18,14 @@ public class PersistencePreProcessor implements PromptPreProcessor {
 
 	@Override
 	public PreRequestContext process(User user, String prompt) {
-		return userRepository.findById(user.id())
-			.map(persistedUser -> new UserRequest(persistedUser.getId(), prompt))
-			.map(userRequestRepository::save)
-			.map(request -> new PreRequestContext(request.getId()))
-			.orElseThrow();
+		UserEntity persistedUser = find(user.id());
+		UserRequest request = new UserRequest(persistedUser.getId(), prompt);
+		userRequestRepository.save(request);
+		return new PreRequestContext(request.getId());
+	}
+
+	private UserEntity find(String id) {
+		return userRepository.findById(id)
+			.orElseGet(() -> userRepository.save(new UserEntity(id)));
 	}
 }
